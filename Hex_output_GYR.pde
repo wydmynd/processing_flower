@@ -23,7 +23,7 @@ void setup()
     println("z="+z+"theta="+theta1+" radmax="+rad_max);
     for  (rad=rad_max-1.5; rad<rad_max; rad+=0.4)
     {
-      for (float theta2=0; theta2<360; theta2+=5)
+      for (float theta2=0; theta2<360; theta2+=12)
       {
         float x_new=centerX+rad*cos(radians(theta2));
         float y_new=centerY+rad*sin(radians(theta2));
