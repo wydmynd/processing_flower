@@ -1,17 +1,17 @@
 PrintWriter output;
 void setup()
 {
-  output=createWriter("myfile7.gcode");
+  output=createWriter("myfile8.gcode");
 
-  int centerX=0;
-  int centerY=0;
+  int centerX=80;
+  int centerY=80;
   int rad1=30;
   float rad=0;
   float theta1=0;
-  float x_old=0;
-  float y_old=0;
+  float x_old=centerX;
+  float y_old=centerY;
   float extrude=0;
-  float E_ratio=0.19/4;
+  float E_ratio=0.19/4*0.75;
   float z=0;
   float rad_max=0;
   float zmax=10;
@@ -19,11 +19,13 @@ void setup()
   int number_of_leaves=10;
   int i=0;
   output.println("M83");
+  output.println("G1 Z"+z);
+  output.println("G0 X"+centerX+" Y"+centerY+" F5000");
   for (z=0.2; z<zmax; z+=0.2)
   {
     output.println("G1 Z"+z);
-    theta1=10+z*100/zmax; //profile curve of cone - dome whape with some offset
-    rad_max=2+10*sin(radians(theta1)); //max center size
+    theta1=15+z*110/zmax; //profile curve of cone - dome whape with some offset
+    rad_max=4+8*sin(radians(theta1)); //max center size
     println("z="+z+"theta="+theta1+" radmax="+rad_max);
     for  (rad=rad_max-1.5; rad<rad_max; rad+=0.4)
     {
