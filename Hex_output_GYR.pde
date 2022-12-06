@@ -65,8 +65,8 @@ void setup()
   }
   //-------------- end of outer circle -------------
 
-
-  for (z=zmax+0.2; z<zmax+0.5; z+=0.05)
+  float z_curr=zmax+0.2;
+  for (z=zmax+0.2; z<zmax+2.5; z+=0.15)
   {
     output.println("G1 Z"+z);
     boolean leaf = true;
@@ -74,17 +74,19 @@ void setup()
     float section_angle=360/number_of_leaves;
     float leaf_angle=2;
     float rad_leaf=rad1-0.15; //minimum overlap avoid sticking
-    float rad_noleaf=rad_max-1; //sufficient overlap
+    float rad_noleaf=rad_max-1.2; //sufficient overlap
     while (theta1<=360+twist_offset)
     {
       if (leaf)
       {
         theta1+=leaf_angle;
         rad=rad_leaf;
+        z_curr=zmax+0.2;
       } else
       {
         theta1+=section_angle-leaf_angle;
         rad=rad_noleaf;
+        z_curr=z;
       }
 
       leaf=!leaf;
@@ -93,7 +95,7 @@ void setup()
       float y_new=centerY+rad*sin(radians(theta1));
       float line_length=dist(x_new, y_new, x_old, y_old);
       extrude=line_length*E_ratio;
-      output.println("G1 X"+x_new+" Y"+y_new+" F1000 E"+ extrude);
+      output.println("G1 X"+x_new+" Y"+y_new+" Z"+z_curr+" F1000 E"+ extrude);
       x_old=x_new;
       y_old=y_new;
     }
